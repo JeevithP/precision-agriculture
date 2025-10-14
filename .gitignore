@@ -1,0 +1,27 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env/
+
+# Large datasets (do NOT push)
+data/Plant_village/
+PlantVillage/
+PlantVillage/*
+*.zip
+*.tar.gz
+
+# Model files
+models/*.h5
+models/*.ckpt
+models/*.json
+
+# IDE/OS
+.vscode/
+.idea/
+.DS_Store
+
+# Streamlit cache
+.streamlit/
