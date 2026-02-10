@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
+from src.data_processing.south_india_calibration import calibrate_input
 
 def train_crop_model(path="data/crop_recommendation.csv"):
     df = pd.read_csv(path)
@@ -16,6 +17,9 @@ def train_crop_model(path="data/crop_recommendation.csv"):
     print("Crop Model Accuracy:", accuracy_score(y_test, preds))
     return model
 
-def predict_crop(model, features: dict):
-    X_input = [list(features.values())]
-    return model.predict(X_input)[0]
+def predict_crop(model, input_data, district=None):
+    if district:
+        input_data = calibrate_input(input_data, district)
+
+    df = pd.DataFrame([input_data])
+    return model.predict(df)[0]

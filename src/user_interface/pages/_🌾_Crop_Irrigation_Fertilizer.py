@@ -23,6 +23,14 @@ def load_models():
 
 crop_model, irrigation_model, fertilizer_model = load_models()
 
+st.subheader("📍 Region Information")
+
+district = st.text_input(
+    "Enter District (South India only, optional)",
+    value="Mandya",
+    help="Used to calibrate soil values using South Indian district data"
+)
+
 # ----------------------------- #
 # Input Section
 # ----------------------------- #
@@ -52,7 +60,7 @@ if st.button("🔍 Predict Recommendations"):
     st.subheader("📟 Sensor Data")
     st.json(data)
 
-    crop = predict_crop(crop_model, data)
+    crop = predict_crop(crop_model, data, district=district)
     st.success(f"🌾 Recommended Crop: **{crop}**")
 
     irrigation = predict_irrigation(irrigation_model, data)
@@ -60,3 +68,4 @@ if st.button("🔍 Predict Recommendations"):
 
     fertilizer = predict_fertilizer(fertilizer_model, data)
     st.warning(f"🌿 Fertilizer Recommendation: **{fertilizer}**")
+
